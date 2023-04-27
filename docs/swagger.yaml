@@ -1,0 +1,979 @@
+definitions:
+  model.LcdNodeInfo:
+    properties:
+      application_version:
+        properties:
+          build_deps:
+            items:
+              type: string
+            type: array
+          build_tags:
+            type: string
+          commit:
+            type: string
+          cosmos_sdk_version:
+            type: string
+          go:
+            type: string
+          name:
+            type: string
+          server_name:
+            type: string
+          version:
+            type: string
+        type: object
+      node_info:
+        properties:
+          channels:
+            type: string
+          id:
+            type: string
+          listen_addr:
+            type: string
+          moniker:
+            type: string
+          network:
+            type: string
+          other:
+            properties:
+              rpc_address:
+                type: string
+              tx_index:
+                type: string
+            type: object
+          protocol_version:
+            properties:
+              app:
+                type: string
+              block:
+                type: string
+              p2p:
+                type: string
+            type: object
+          version:
+            type: string
+        type: object
+    type: object
+  model.RpcAbciInfo:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          response:
+            properties:
+              data:
+                type: string
+              last_block_app_hash:
+                type: string
+              last_block_height:
+                type: string
+              version:
+                type: string
+            type: object
+        type: object
+    type: object
+  model.RpcBlock:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          block:
+            properties:
+              data:
+                properties:
+                  txs:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              evidence:
+                properties:
+                  evidence:
+                    items: {}
+                    type: array
+                type: object
+              header:
+                properties:
+                  app_hash:
+                    type: string
+                  chain_id:
+                    type: string
+                  consensus_hash:
+                    type: string
+                  data_hash:
+                    type: string
+                  evidence_hash:
+                    type: string
+                  height:
+                    type: string
+                  last_block_id:
+                    properties:
+                      hash:
+                        type: string
+                      parts:
+                        properties:
+                          hash:
+                            type: string
+                          total:
+                            type: integer
+                        type: object
+                    type: object
+                  last_commit_hash:
+                    type: string
+                  last_results_hash:
+                    type: string
+                  next_validators_hash:
+                    type: string
+                  proposer_address:
+                    type: string
+                  time:
+                    type: string
+                  validators_hash:
+                    type: string
+                  version:
+                    properties:
+                      block:
+                        type: string
+                    type: object
+                type: object
+              last_commit:
+                properties:
+                  block_id:
+                    properties:
+                      hash:
+                        type: string
+                      parts:
+                        properties:
+                          hash:
+                            type: string
+                          total:
+                            type: integer
+                        type: object
+                    type: object
+                  height:
+                    type: string
+                  round:
+                    type: integer
+                  signatures:
+                    items:
+                      properties:
+                        block_id_flag:
+                          type: integer
+                        signature:
+                          type: string
+                        timestamp:
+                          type: string
+                        validator_address:
+                          type: string
+                      type: object
+                    type: array
+                type: object
+            type: object
+          block_id:
+            properties:
+              hash:
+                type: string
+              parts:
+                properties:
+                  hash:
+                    type: string
+                  total:
+                    type: integer
+                type: object
+            type: object
+        type: object
+    type: object
+  model.RpcConsensusParams:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          block:
+            properties:
+              data:
+                properties:
+                  txs:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              evidence:
+                properties:
+                  evidence:
+                    items: {}
+                    type: array
+                type: object
+              header:
+                properties:
+                  app_hash:
+                    type: string
+                  chain_id:
+                    type: string
+                  consensus_hash:
+                    type: string
+                  data_hash:
+                    type: string
+                  evidence_hash:
+                    type: string
+                  height:
+                    type: string
+                  last_block_id:
+                    properties:
+                      hash:
+                        type: string
+                      parts:
+                        properties:
+                          hash:
+                            type: string
+                          total:
+                            type: integer
+                        type: object
+                    type: object
+                  last_commit_hash:
+                    type: string
+                  last_results_hash:
+                    type: string
+                  next_validators_hash:
+                    type: string
+                  proposer_address:
+                    type: string
+                  time:
+                    type: string
+                  validators_hash:
+                    type: string
+                  version:
+                    properties:
+                      block:
+                        type: string
+                    type: object
+                type: object
+              last_commit:
+                properties:
+                  block_id:
+                    properties:
+                      hash:
+                        type: string
+                      parts:
+                        properties:
+                          hash:
+                            type: string
+                          total:
+                            type: integer
+                        type: object
+                    type: object
+                  height:
+                    type: string
+                  round:
+                    type: integer
+                  signatures:
+                    items:
+                      properties:
+                        block_id_flag:
+                          type: integer
+                        signature:
+                          type: string
+                        timestamp:
+                          type: string
+                        validator_address:
+                          type: string
+                      type: object
+                    type: array
+                type: object
+            type: object
+          block_id:
+            properties:
+              hash:
+                type: string
+              parts:
+                properties:
+                  hash:
+                    type: string
+                  total:
+                    type: integer
+                type: object
+            type: object
+        type: object
+    type: object
+  model.RpcConsensusState:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          round_state:
+            properties:
+              height/round/step:
+                type: string
+              height_vote_set:
+                items:
+                  properties:
+                    precommits:
+                      items:
+                        type: string
+                      type: array
+                    precommits_bit_array:
+                      type: string
+                    prevotes:
+                      items:
+                        type: string
+                      type: array
+                    prevotes_bit_array:
+                      type: string
+                    round:
+                      type: integer
+                  type: object
+                type: array
+              locked_block_hash:
+                type: string
+              proposal_block_hash:
+                type: string
+              proposer:
+                properties:
+                  address:
+                    type: string
+                  index:
+                    type: integer
+                type: object
+              start_time:
+                type: string
+              valid_block_hash:
+                type: string
+            type: object
+        type: object
+    type: object
+  model.RpcDumpConsensusState:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          round_state:
+            properties:
+              height/round/step:
+                type: string
+              height_vote_set:
+                items:
+                  properties:
+                    precommits:
+                      items:
+                        type: string
+                      type: array
+                    precommits_bit_array:
+                      type: string
+                    prevotes:
+                      items:
+                        type: string
+                      type: array
+                    prevotes_bit_array:
+                      type: string
+                    round:
+                      type: integer
+                  type: object
+                type: array
+              locked_block_hash:
+                type: string
+              proposal_block_hash:
+                type: string
+              proposer:
+                properties:
+                  address:
+                    type: string
+                  index:
+                    type: integer
+                type: object
+              start_time:
+                type: string
+              valid_block_hash:
+                type: string
+            type: object
+        type: object
+    type: object
+  model.RpcError:
+    properties:
+      error:
+        type: string
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+    type: object
+  model.RpcHealth:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        type: object
+    type: object
+  model.RpcNetInfo:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          listeners:
+            items:
+              type: string
+            type: array
+          listening:
+            type: boolean
+          n_peers:
+            type: string
+          peers:
+            items:
+              properties:
+                connection_status:
+                  properties:
+                    Channels:
+                      items:
+                        properties:
+                          ID:
+                            type: integer
+                          Priority:
+                            type: string
+                          RecentlySent:
+                            type: string
+                          SendQueueCapacity:
+                            type: string
+                          SendQueueSize:
+                            type: string
+                        type: object
+                      type: array
+                    Duration:
+                      type: string
+                    RecvMonitor:
+                      properties:
+                        Active:
+                          type: boolean
+                        AvgRate:
+                          type: string
+                        Bytes:
+                          type: string
+                        BytesRem:
+                          type: string
+                        CurRate:
+                          type: string
+                        Duration:
+                          type: string
+                        Idle:
+                          type: string
+                        InstRate:
+                          type: string
+                        PeakRate:
+                          type: string
+                        Progress:
+                          type: integer
+                        Samples:
+                          type: string
+                        Start:
+                          type: string
+                        TimeRem:
+                          type: string
+                      type: object
+                    SendMonitor:
+                      properties:
+                        Active:
+                          type: boolean
+                        AvgRate:
+                          type: string
+                        Bytes:
+                          type: string
+                        BytesRem:
+                          type: string
+                        CurRate:
+                          type: string
+                        Duration:
+                          type: string
+                        Idle:
+                          type: string
+                        InstRate:
+                          type: string
+                        PeakRate:
+                          type: string
+                        Progress:
+                          type: integer
+                        Samples:
+                          type: string
+                        Start:
+                          type: string
+                        TimeRem:
+                          type: string
+                      type: object
+                  type: object
+                is_outbound:
+                  type: boolean
+                node_info:
+                  properties:
+                    channels:
+                      type: string
+                    id:
+                      type: string
+                    listen_addr:
+                      type: string
+                    moniker:
+                      type: string
+                    network:
+                      type: string
+                    other:
+                      properties:
+                        rpc_address:
+                          type: string
+                        tx_index:
+                          type: string
+                      type: object
+                    protocol_version:
+                      properties:
+                        app:
+                          type: string
+                        block:
+                          type: string
+                        p2p:
+                          type: string
+                      type: object
+                    version:
+                      type: string
+                  type: object
+                remote_ip:
+                  type: string
+              type: object
+            type: array
+        type: object
+    type: object
+  model.RpcStatus:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          node_info:
+            properties:
+              channels:
+                type: string
+              id:
+                type: string
+              listen_addr:
+                type: string
+              moniker:
+                type: string
+              network:
+                type: string
+              other:
+                properties:
+                  rpc_address:
+                    type: string
+                  tx_index:
+                    type: string
+                type: object
+              protocol_version:
+                properties:
+                  app:
+                    type: string
+                  block:
+                    type: string
+                  p2p:
+                    type: string
+                type: object
+              version:
+                type: string
+            type: object
+          sync_info:
+            properties:
+              catching_up:
+                type: boolean
+              earliest_app_hash:
+                type: string
+              earliest_block_hash:
+                type: string
+              earliest_block_height:
+                type: string
+              earliest_block_time:
+                type: string
+              latest_app_hash:
+                type: string
+              latest_block_hash:
+                type: string
+              latest_block_height:
+                type: string
+              latest_block_time:
+                type: string
+            type: object
+          validator_info:
+            properties:
+              address:
+                type: string
+              pub_key:
+                properties:
+                  type:
+                    type: string
+                  value:
+                    type: string
+                type: object
+              voting_power:
+                type: string
+            type: object
+        type: object
+    type: object
+  model.RpcTx:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          hash:
+            type: string
+          height:
+            type: string
+          index:
+            type: integer
+          tx:
+            type: string
+          tx_result:
+            properties:
+              code:
+                type: integer
+              codespace:
+                type: string
+              data:
+                type: string
+              events:
+                items:
+                  properties:
+                    attributes:
+                      items:
+                        properties:
+                          index:
+                            type: boolean
+                          key:
+                            type: string
+                          value:
+                            type: string
+                        type: object
+                      type: array
+                    type:
+                      type: string
+                  type: object
+                type: array
+              gas_used:
+                type: string
+              gas_wanted:
+                type: string
+              info:
+                type: string
+              log:
+                type: string
+            type: object
+        type: object
+    type: object
+  model.RpcValidators:
+    properties:
+      id:
+        type: integer
+      jsonrpc:
+        type: string
+      result:
+        properties:
+          block_height:
+            type: string
+          count:
+            type: string
+          total:
+            type: string
+          validators:
+            items:
+              properties:
+                address:
+                  type: string
+                proposer_priority:
+                  type: string
+                pub_key:
+                  properties:
+                    type:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                voting_power:
+                  type: string
+              type: object
+            type: array
+        type: object
+    type: object
+info:
+  contact: {}
+paths:
+  /abci_info:
+    get:
+      consumes:
+      - '*/*'
+      description: Get info about the application. Upon success, the Cache-Control
+        header will be set with the default maximum age.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcAbciInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Get info about the application
+      tags:
+      - RPC
+  /block:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Block. If the height field is set to a non-default value, upon
+        success, the Cache-Control header will be set with the default maximum age.
+      parameters:
+      - default: 14992000
+        description: height to return. If no height is provided, it will fetch validator
+          set which corresponds to the latest block.
+        in: query
+        name: height
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcBlock'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Get block at a specified height
+      tags:
+      - RPC
+  /consensus_params:
+    get:
+      consumes:
+      - '*/*'
+      description: Get consensus parameters. If the height field is set to a non-default
+        value, upon success, the Cache-Control header will be set with the default
+        maximum age.
+      parameters:
+      - default: 14992000
+        description: height to return. If no height is provided, it will fetch validator
+          set which corresponds to the latest block.
+        in: query
+        name: height
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcConsensusParams'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Get consensus parameters
+      tags:
+      - RPC
+  /consensus_state:
+    get:
+      consumes:
+      - '*/*'
+      description: Get consensus state. Not safe to call from inside the ABCI application
+        during a block execution.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcConsensusState'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Get consensus state
+      tags:
+      - RPC
+  /dump_consensus_state:
+    get:
+      consumes:
+      - '*/*'
+      description: Get consensus state. Not safe to call from inside the ABCI application
+        during a block execution.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcDumpConsensusState'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Get consensus state
+      tags:
+      - RPC
+  /health:
+    get:
+      consumes:
+      - '*/*'
+      description: Get node health. Returns empty result (200 OK) on success, no response
+        - in case of an error.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcHealth'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Node heartbeat
+      tags:
+      - RPC
+  /net_info:
+    get:
+      consumes:
+      - '*/*'
+      description: Get network info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcNetInfo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Network informations
+      tags:
+      - RPC
+  /node_info:
+    get:
+      consumes:
+      - '*/*'
+      description: Information about the connected node
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LcdNodeInfo'
+        "500":
+          description: Failed to query node status
+      summary: The properties of the connected node
+      tags:
+      - LCD
+  /status:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Tendermint status including node info, pubkey, latest block
+        hash, app hash, block height and time.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcStatus'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Node Status
+      tags:
+      - RPC
+  /tx:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Transaction
+      parameters:
+      - default: 0xAAAE86DA167A62EF57F30B857E9F37FE4E13060FE2569BB700FB286D03F1F454
+        description: Transaction hash (0x + Hash)
+        in: query
+        name: hash
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcTx'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Node heartbeat
+      tags:
+      - RPC
+  /validators:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Validators. Validators are sorted by voting power. If the height
+        field is set to a non-default value, upon success, the Cache-Control header
+        will be set with the default maximum age.
+      parameters:
+      - default: 14992000
+        description: height to return. If no height is provided, it will fetch validator
+          set which corresponds to the latest block.
+        in: query
+        name: height
+        type: integer
+      - default: 1
+        description: Page number (1-based)
+        in: query
+        name: page
+        type: integer
+      - default: 100
+        description: 'Number of entries per page (max: 100)'
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.RpcValidators'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.RpcError'
+      summary: Get validator set at a specified height
+      tags:
+      - RPC
+swagger: "2.0"

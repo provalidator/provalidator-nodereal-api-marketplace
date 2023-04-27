@@ -1,0 +1,433 @@
+definitions:
+  model.LcdBlocksHeight:
+    properties:
+      block:
+        properties:
+          data:
+            properties:
+              txs:
+                items:
+                  type: string
+                type: array
+            type: object
+          evidence:
+            properties:
+              evidence:
+                items: {}
+                type: array
+            type: object
+          header:
+            properties:
+              app_hash:
+                type: string
+              chain_id:
+                type: string
+              consensus_hash:
+                type: string
+              data_hash:
+                type: string
+              evidence_hash:
+                type: string
+              height:
+                type: string
+              last_block_id:
+                properties:
+                  hash:
+                    type: string
+                  parts:
+                    properties:
+                      hash:
+                        type: string
+                      total:
+                        type: integer
+                    type: object
+                type: object
+              last_commit_hash:
+                type: string
+              last_results_hash:
+                type: string
+              next_validators_hash:
+                type: string
+              proposer_address:
+                type: string
+              time:
+                type: string
+              validators_hash:
+                type: string
+              version:
+                properties:
+                  block:
+                    type: string
+                type: object
+            type: object
+          last_commit:
+            properties:
+              block_id:
+                properties:
+                  hash:
+                    type: string
+                  parts:
+                    properties:
+                      hash:
+                        type: string
+                      total:
+                        type: integer
+                    type: object
+                type: object
+              height:
+                type: string
+              round:
+                type: integer
+              signatures:
+                items:
+                  properties:
+                    block_id_flag:
+                      type: integer
+                    signature:
+                      type: string
+                    timestamp:
+                      type: string
+                    validator_address:
+                      type: string
+                  type: object
+                type: array
+            type: object
+        type: object
+      block_id:
+        properties:
+          hash:
+            type: string
+          parts:
+            properties:
+              hash:
+                type: string
+              total:
+                type: integer
+            type: object
+        type: object
+    type: object
+  model.LcdBlocksLatest:
+    properties:
+      block:
+        properties:
+          data:
+            properties:
+              txs:
+                items:
+                  type: string
+                type: array
+            type: object
+          evidence:
+            properties:
+              evidence:
+                items: {}
+                type: array
+            type: object
+          header:
+            properties:
+              app_hash:
+                type: string
+              chain_id:
+                type: string
+              consensus_hash:
+                type: string
+              data_hash:
+                type: string
+              evidence_hash:
+                type: string
+              height:
+                type: string
+              last_block_id:
+                properties:
+                  hash:
+                    type: string
+                  parts:
+                    properties:
+                      hash:
+                        type: string
+                      total:
+                        type: integer
+                    type: object
+                type: object
+              last_commit_hash:
+                type: string
+              last_results_hash:
+                type: string
+              next_validators_hash:
+                type: string
+              proposer_address:
+                type: string
+              time:
+                type: string
+              validators_hash:
+                type: string
+              version:
+                properties:
+                  block:
+                    type: string
+                type: object
+            type: object
+          last_commit:
+            properties:
+              block_id:
+                properties:
+                  hash:
+                    type: string
+                  parts:
+                    properties:
+                      hash:
+                        type: string
+                      total:
+                        type: integer
+                    type: object
+                type: object
+              height:
+                type: string
+              round:
+                type: integer
+              signatures:
+                items:
+                  properties:
+                    block_id_flag:
+                      type: integer
+                    signature:
+                      type: string
+                    timestamp:
+                      type: string
+                    validator_address:
+                      type: string
+                  type: object
+                type: array
+            type: object
+        type: object
+      block_id:
+        properties:
+          hash:
+            type: string
+          parts:
+            properties:
+              hash:
+                type: string
+              total:
+                type: integer
+            type: object
+        type: object
+    type: object
+  model.LcdNodeInfo:
+    properties:
+      application_version:
+        properties:
+          build_deps:
+            items:
+              type: string
+            type: array
+          build_tags:
+            type: string
+          commit:
+            type: string
+          cosmos_sdk_version:
+            type: string
+          go:
+            type: string
+          name:
+            type: string
+          server_name:
+            type: string
+          version:
+            type: string
+        type: object
+      node_info:
+        properties:
+          channels:
+            type: string
+          id:
+            type: string
+          listen_addr:
+            type: string
+          moniker:
+            type: string
+          network:
+            type: string
+          other:
+            properties:
+              rpc_address:
+                type: string
+              tx_index:
+                type: string
+            type: object
+          protocol_version:
+            properties:
+              app:
+                type: string
+              block:
+                type: string
+              p2p:
+                type: string
+            type: object
+          version:
+            type: string
+        type: object
+    type: object
+  model.LcdSyncing:
+    properties:
+      syncing:
+        type: boolean
+    type: object
+  model.ValidatorsetsLatest:
+    properties:
+      height:
+        type: string
+      result:
+        properties:
+          block_height:
+            type: string
+          total:
+            type: string
+          validators:
+            items:
+              properties:
+                address:
+                  type: string
+                proposer_priority:
+                  type: string
+                pub_key:
+                  properties:
+                    type:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                voting_power:
+                  type: string
+              type: object
+            type: array
+        type: object
+    type: object
+info:
+  contact: {}
+paths:
+  /blocks/{height}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get a block at a certain height
+      parameters:
+      - default: 15007750
+        description: height
+        in: path
+        name: height
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LcdBlocksHeight'
+        "400":
+          description: Invalid height
+        "404":
+          description: Request block height doesn't
+        "500":
+          description: Server internal error
+      summary: Get a block at a certain height
+      tags:
+      - Tendermint RPC
+  /blocks/latest:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the latest block
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LcdBlocksLatest'
+        "500":
+          description: Server internal error
+      summary: Get the latest block
+      tags:
+      - Tendermint RPC
+  /node_info:
+    get:
+      consumes:
+      - '*/*'
+      description: Information about the connected node
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LcdNodeInfo'
+        "500":
+          description: Failed to query node status
+      summary: The properties of the connected node
+      tags:
+      - Gaia REST
+  /syncing:
+    get:
+      consumes:
+      - '*/*'
+      description: Get if the node is currently syning with other nodes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LcdSyncing'
+        "500":
+          description: Server internal error
+      summary: Syncing state of node
+      tags:
+      - Tendermint RPC
+  /validatorsets/{height}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get a validator set a certain height
+      parameters:
+      - default: 15007750
+        description: height
+        in: path
+        name: height
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LcdBlocksHeight'
+        "400":
+          description: Invalid height
+        "404":
+          description: Request block height doesn't
+        "500":
+          description: Server internal error
+      summary: Get a validator set a certain height
+      tags:
+      - Tendermint RPC
+  /validatorsets/latest:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the latest validator set
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ValidatorsetsLatest'
+        "500":
+          description: Server internal error
+      summary: Get the latest validator set
+      tags:
+      - Tendermint RPC
+swagger: "2.0"

@@ -1,0 +1,8 @@
+RPC_PORT=7777
+LCD_PORT=6666
+PUB_KEY_DIR=/keys/nodereal.pub
+RPC_URL=https://rpc-cosmos-mainnet.provalidator.com
+LCD_URL=https://lcd-cosmos-mainnet.provalidator.com
+SWAGGER_RPC_URL=rpc-cosmos-mainnet.provalidator.com
+SWAGGER_LCD_URL=lcd-cosmos-mainnet.provalidator.com
+WHITE_LIST_IPS=127.0.0.1,::1
