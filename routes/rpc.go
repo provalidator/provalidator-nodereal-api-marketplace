@@ -40,6 +40,9 @@ func setupRpcRouter() *gin.Engine {
 	// RPC
 	rpc := r.Group("")
 	{
+		//JSONRPC/HTTP
+		rpc.POST("", mw, rpcRoutes.Post)
+
 		// Info
 		rpc.GET("/health", mw, rpcRoutes.Health)
 		rpc.GET("/net_info", mw, rpcRoutes.NetInfo)
