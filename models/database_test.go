@@ -37,13 +37,14 @@ func TestDB(t *testing.T) {
 	// DB
 	ConnectDatabase()
 	log.Logger.Info.Println(DbStr)
-	Read()
-	Write()
-	Read()
-	Update()
-	Read()
-	Delete()
-	Read()
+	// Read()
+	// Write()
+	// Read()
+	// Update()
+	// Read()
+	// Delete()
+	// Read()
+	log.Logger.Info.Println("cnt", Count("9900cd1f-9cf1-44fb-857e-b189eb0fe249"))
 
 }
 
@@ -52,12 +53,6 @@ func Read() {
 	DB.Find(&apiUsage)
 	log.Logger.Info.Println("Read test")
 	log.Logger.Info.Println(apiUsage)
-}
-
-func Check(token string) {
-	var apiUsage = ApiUsage{}
-	// DB.Where("token = ?", token).First(apiUsage)
-	DB.Exec("").First(apiUsage)
 }
 
 func Write() {

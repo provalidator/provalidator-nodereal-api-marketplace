@@ -100,11 +100,16 @@ func AuthorizationMiddleware(c *gin.Context) {
 		return
 	}
 	// Usage check from DB
-	// 1. Read usage data ( * find by tokenString)
+	// 1. Read usage data ( sub )
+	requestsCnt := models.Count(claims.Sub)
 
-	// 2. Usage process
-
-	// 3. Write usage data
+	if requestsCnt >= 100000 {
+		log.Logger.Error.Println("Exceeded the limit.", "sub:", claims.Sub, "(", requestsCnt, ")")
+		c.JSON(http.StatusUnauthorized, gin.H{"status": http.StatusUnauthorized, "error": "You've already exceeded the limit. (100,000 Requests)"})
+		c.Abort()
+		return
+	}
+	// 2. Write usage data Log
 	models.WriteLog(claims.Sub, tokenString, c.ClientIP(), c.Request.URL.Path)
 
 	c.Next()

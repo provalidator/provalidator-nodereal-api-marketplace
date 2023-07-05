@@ -41,3 +41,9 @@ func WriteLog(sub string, token string, ip string, method string) {
 	input := ApiUsage{Sub: sub, Token: token, Ip: ip, Method: method, Date: date}
 	DB.Create(&input)
 }
+
+func Count(sub string) int {
+	apiUsage := ApiUsage{}
+	DB.Raw("SELECT count(1) AS cnt	FROM ( SELECT * FROM nodereal.api_usages WHERE date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND NOW() ) AS a	WHERE a.sub= ?", sub).Scan(&apiUsage)
+	return apiUsage.Cnt
+}
