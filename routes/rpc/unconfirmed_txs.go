@@ -43,13 +43,13 @@ func UnconfirmedTxs(c *gin.Context) {
 		return
 	}
 
+	var v interface{}
+	json.NewDecoder(response.Body).Decode(&v)
+	c.JSON(200, v) // Write Body
+
 	err2 := response.Body.Close()
 
 	if err2 != nil {
 		log.Logger.Error.Println(err.Error())
 	}
-
-	var v interface{}
-	json.NewDecoder(response.Body).Decode(&v)
-	c.JSON(200, v) // Write Body
 }

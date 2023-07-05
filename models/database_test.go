@@ -54,6 +54,12 @@ func Read() {
 	log.Logger.Info.Println(apiUsage)
 }
 
+func Check(token string) {
+	var apiUsage = ApiUsage{}
+	// DB.Where("token = ?", token).First(apiUsage)
+	DB.Exec("").First(apiUsage)
+}
+
 func Write() {
 	log.Logger.Info.Println("Write test")
 	input := ApiUsage{Token: "test", Method: "/asddf", Date: "2012-02-20 12:11:11"}
