@@ -101,11 +101,11 @@ func AuthorizationMiddleware(c *gin.Context) {
 	}
 	// Usage check from DB
 	// 1. Read usage data ( * find by tokenString)
-
+	log.Logger.Info.Panicln()
 	// 2. Usage process
 
 	// 3. Write usage data
-	models.WriteLog(tokenString, c.ClientIP(), c.Request.URL.Path)
+	models.WriteLog(claims.Sub, tokenString, c.ClientIP(), c.Request.URL.Path)
 
 	c.Next()
 }

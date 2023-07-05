@@ -34,10 +34,10 @@ func ConnectDatabase() {
 	DB.DB().SetMaxOpenConns(100) // Set the maximum number of open connections to the database
 }
 
-func WriteLog(token string, ip string, method string) {
+func WriteLog(sub string, token string, ip string, method string) {
 	log.Logger.Info.Println("WriteLog. Token:", token, ", IP:", ip, ", Method:", method)
 	now := time.Now()
 	date := now.Format("2006-01-02 15:04:05")
-	input := ApiUsage{Token: token, Ip: ip, Method: method, Date: date}
+	input := ApiUsage{Sub: sub, Token: token, Ip: ip, Method: method, Date: date}
 	DB.Create(&input)
 }
