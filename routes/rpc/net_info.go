@@ -6,9 +6,11 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 // NetInfo godoc
+//
 //	@Summary		Network informations
 //	@Description	Get network info
 //	@Tags			Info
@@ -25,6 +27,12 @@ func NetInfo(c *gin.Context) {
 	if err != nil {
 		c.Status(http.StatusServiceUnavailable)
 		return
+	}
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
 	}
 
 	var v interface{}

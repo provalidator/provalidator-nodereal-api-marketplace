@@ -7,9 +7,11 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 // AbciInfo godoc
+//
 //	@Summary		Get info about the application
 //	@Description	Get info about the application. Upon success, the Cache-Control header will be set with the default maximum age.
 //	@Tags			ABCI
@@ -27,7 +29,11 @@ func AbciInfo(c *gin.Context) {
 		c.Status(http.StatusServiceUnavailable)
 		return
 	}
+	err2 := response.Body.Close()
 
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
+	}
 	var v interface{}
 	json.NewDecoder(response.Body).Decode(&v)
 	c.JSON(200, v) // Write Body

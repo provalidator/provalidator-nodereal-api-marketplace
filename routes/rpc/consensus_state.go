@@ -6,9 +6,11 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 // ConsensusState godoc
+//
 //	@Summary		Get consensus state
 //	@Description	Get consensus state. Not safe to call from inside the ABCI application during a block execution.
 //	@Tags			Info
@@ -24,6 +26,12 @@ func ConsensusStatus(c *gin.Context) {
 	if err != nil {
 		c.Status(http.StatusServiceUnavailable)
 		return
+	}
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
 	}
 
 	var v interface{}

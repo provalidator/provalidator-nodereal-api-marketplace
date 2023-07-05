@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 type CheckTxBind struct {
@@ -14,6 +15,7 @@ type CheckTxBind struct {
 }
 
 // CheckTx godoc
+//
 //	@Summary		Checks the transaction without executing it.
 //	@Description	The transaction won't be added to the mempool. Please refer to https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#formatting for formatting/encoding rules. Upon success, the Cache-Control header will be set with the default maximum age.
 //	@Tags			Tx
@@ -46,6 +48,12 @@ func CheckTx(c *gin.Context) {
 	if err != nil {
 		c.Status(http.StatusServiceUnavailable)
 		return
+	}
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
 	}
 
 	var v interface{}

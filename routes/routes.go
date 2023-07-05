@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/provalidator-nodereal-api-marketplace/log"
-	"github.com/provalidator-nodereal-api-marketplace/model"
+	"github.com/provalidator-nodereal-api-marketplace/models"
 	"github.com/provalidator-nodereal-api-marketplace/util"
 )
 
@@ -61,7 +61,7 @@ func AuthorizationMiddleware(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	claims := &model.NoderealToken{}
+	claims := &models.NoderealToken{}
 	_, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 		return parsedPubKey, nil
 	})
@@ -98,5 +98,10 @@ func AuthorizationMiddleware(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	// Usage check from DB
+	// 1. Read usage data ( * find by tokenString)
+
+	// 2. Usage process
+	// 3. Write usage data
 	c.Next()
 }

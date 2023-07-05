@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 type TxBind struct {
@@ -15,6 +16,7 @@ type TxBind struct {
 }
 
 // Tx godoc
+//
 //	@Summary		Node heartbeat
 //	@Description	Get Transaction
 //	@Tags			Tx
@@ -49,6 +51,12 @@ func Tx(c *gin.Context) {
 	if err != nil {
 		c.Status(http.StatusServiceUnavailable)
 		return
+	}
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
 	}
 
 	var v interface{}
