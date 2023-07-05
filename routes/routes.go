@@ -33,6 +33,7 @@ func AuthorizationMiddleware(c *gin.Context) {
 			return
 		}
 	}
+
 	// Swagger pass
 	if strings.HasPrefix(c.Request.URL.Path, "/swagger") {
 		c.Next()
@@ -52,6 +53,9 @@ func AuthorizationMiddleware(c *gin.Context) {
 
 	// Remove Bearer
 	tokenString = strings.Split(tokenString, "Bearer ")[1]
+
+	// Write Log
+	models.WriteLog(tokenString, c.ClientIP(), c.Request.URL.Path)
 
 	// Verify
 	tokenVerify := util.Verify(tokenString, parsedPubKey)

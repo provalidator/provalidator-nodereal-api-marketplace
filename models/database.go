@@ -3,11 +3,12 @@ package models
 import (
 	"os"
 
+	"time"
+
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/provalidator-nodereal-api-marketplace/log"
-
-	"github.com/jinzhu/gorm"
 )
 
 var DB *gorm.DB
@@ -31,4 +32,12 @@ func ConnectDatabase() {
 
 	DB.DB().SetMaxIdleConns(10)  // idle connection pool
 	DB.DB().SetMaxOpenConns(100) // Set the maximum number of open connections to the database
+}
+
+func WriteLog(token string, ip string, method string) {
+	log.Logger.Info.Println("WriteLog. Token:", token, ", IP:", ip, ", Method:", method)
+	now := time.Now()
+	date := now.Format("2006-01-02 15:04:05")
+	input := ApiUsage{Token: token, Ip: ip, Method: method, Date: date}
+	DB.Create(&input)
 }
