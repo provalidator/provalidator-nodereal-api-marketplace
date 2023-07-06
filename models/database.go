@@ -35,10 +35,10 @@ func ConnectDatabase() {
 }
 
 func WriteLog(sub string, token string, ip string, method string) {
-	log.Logger.Info.Println("WriteLog. Token:", token, ", IP:", ip, ", Method:", method)
+	//log.Logger.Info.Println("WriteLog. Token:", token, ", IP:", ip, ", Method:", method)
 	now := time.Now()
 	date := now.Format("2006-01-02 15:04:05")
-	input := ApiUsage{Sub: sub, Token: token, Ip: ip, Method: method, Date: date}
+	input := ApiUsage{Sub: sub, Token: token, Ip: ip, Method: method, Date: date, ChainName: os.Getenv("CHAIN_NAME")}
 	DB.Create(&input)
 }
 
