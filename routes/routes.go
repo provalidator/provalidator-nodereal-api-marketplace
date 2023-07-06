@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/provalidator-nodereal-api-marketplace/log"
-	"github.com/provalidator-nodereal-api-marketplace/model"
+	"github.com/provalidator-nodereal-api-marketplace/models"
 	"github.com/provalidator-nodereal-api-marketplace/util"
 )
 
@@ -33,11 +33,12 @@ func AuthorizationMiddleware(c *gin.Context) {
 			return
 		}
 	}
-	// Swagger pass
-	if strings.HasPrefix(c.Request.URL.Path, "/swagger") {
-		c.Next()
-		return
-	}
+
+	// // Swagger pass
+	// if strings.HasPrefix(c.Request.URL.Path, "/swagger") {
+	// 	c.Next()
+	// 	return
+	// }
 
 	// Get Authorization
 	tokenString := c.Request.Header.Get("Authorization")
@@ -61,7 +62,7 @@ func AuthorizationMiddleware(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	claims := &model.NoderealToken{}
+	claims := &models.NoderealToken{}
 	_, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 		return parsedPubKey, nil
 	})
@@ -98,5 +99,18 @@ func AuthorizationMiddleware(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	// Usage check from DB
+	// 1. Read usage data ( sub )
+	requestsCnt := models.Count(claims.Sub)
+
+	if requestsCnt >= 100000 {
+		log.Logger.Error.Println("Exceeded the limit.", "sub:", claims.Sub, "(", requestsCnt, ")")
+		c.JSON(http.StatusUnauthorized, gin.H{"status": http.StatusUnauthorized, "error": "You've already exceeded the limit. (100,000 Requests)"})
+		c.Abort()
+		return
+	}
+	// 2. Write usage data Log
+	models.WriteLog(claims.Sub, tokenString, c.ClientIP(), c.Request.URL.Path)
+
 	c.Next()
 }

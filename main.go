@@ -10,6 +10,7 @@ import (
 
 	"github.com/provalidator-nodereal-api-marketplace/config"
 	"github.com/provalidator-nodereal-api-marketplace/log"
+	"github.com/provalidator-nodereal-api-marketplace/models"
 	"github.com/provalidator-nodereal-api-marketplace/routes"
 	"golang.org/x/sync/errgroup"
 )
@@ -38,6 +39,9 @@ func main() {
 		log.Logger.Trace.Println("prod.env")
 	}
 	log.Logger.Trace.Println("runtime.GOOS", runtime.GOOS)
+
+	// DB
+	models.ConnectDatabase()
 
 	lcdServer := &http.Server{
 		Addr:         ":" + os.Getenv("LCD_PORT"),

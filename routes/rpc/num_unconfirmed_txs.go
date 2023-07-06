@@ -6,17 +6,18 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
-//  NumUnconfirmedTxs godoc
-//	@Summary		Get data about unconfirmed transactions
-//	@Description	Get data about unconfirmed transactions
-//	@Tags			Info
-//	@Accept			*/*
-//	@Produce		json
-//	@Success		200	{object}	model.NumUnconfirmedTxs
-//	@Failure		500	{object}	model.RpcError
-//	@Router			/num_unconfirmed_txs [get]
+//	 NumUnconfirmedTxs godoc
+//		@Summary		Get data about unconfirmed transactions
+//		@Description	Get data about unconfirmed transactions
+//		@Tags			Info
+//		@Accept			*/*
+//		@Produce		json
+//		@Success		200	{object}	model.NumUnconfirmedTxs
+//		@Failure		500	{object}	model.RpcError
+//		@Router			/num_unconfirmed_txs [get]
 func NumUnconfirmedTxs(c *gin.Context) {
 	getPath := "/num_unconfirmed_txs"
 	callUrl := os.Getenv("RPC_URL") + getPath
@@ -30,4 +31,10 @@ func NumUnconfirmedTxs(c *gin.Context) {
 	var v interface{}
 	json.NewDecoder(response.Body).Decode(&v)
 	c.JSON(200, v) // Write Body
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
+	}
 }

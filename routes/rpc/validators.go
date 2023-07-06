@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 type ValidatorsBind struct {
@@ -15,6 +16,7 @@ type ValidatorsBind struct {
 }
 
 // Validators godoc
+//
 //	@Summary		Get validator set at a specified height
 //	@Description	Get Validators. Validators are sorted by voting power. If the height field is set to a non-default value, upon success, the Cache-Control header will be set with the default maximum age.
 //	@Tags			Info
@@ -48,4 +50,10 @@ func Validators(c *gin.Context) {
 	var v interface{}
 	json.NewDecoder(response.Body).Decode(&v)
 	c.JSON(200, v) // Write Body
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
+	}
 }

@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 type AbciQueryBind struct {
@@ -17,6 +18,7 @@ type AbciQueryBind struct {
 }
 
 // AbciQuery godoc
+//
 //	@Summary		Query the application for some information.
 //	@Description	Query the application for some information.
 //	@Tags			ABCI
@@ -42,4 +44,10 @@ func AbciQuery(c *gin.Context) {
 	var v interface{}
 	json.NewDecoder(response.Body).Decode(&v)
 	c.JSON(200, v) // Write Body
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
+	}
 }

@@ -6,22 +6,23 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/provalidator-nodereal-api-marketplace/log"
 )
 
 type UnconfirmedTxsBind struct {
 	limit string `form:"limit,default=30"`
 }
 
-//  UnconfirmedTxs godoc
-//	@Summary		Get list of unconfirmed transactions
-//	@Description	Get list of unconfirmed transactions
-//	@Tags			Info
-//	@Accept			*/*
-//	@Produce		json
-//	@Param			limit	query		int	false	"Maximum number of unconfirmed transactions to return (max 100)"	default(30)
-//	@Success		200		{object}	model.UnconfirmedTxs
-//	@Failure		500		{object}	model.RpcError
-//	@Router			/unconfirmed_txs [get]
+//	 UnconfirmedTxs godoc
+//		@Summary		Get list of unconfirmed transactions
+//		@Description	Get list of unconfirmed transactions
+//		@Tags			Info
+//		@Accept			*/*
+//		@Produce		json
+//		@Param			limit	query		int	false	"Maximum number of unconfirmed transactions to return (max 100)"	default(30)
+//		@Success		200		{object}	model.UnconfirmedTxs
+//		@Failure		500		{object}	model.RpcError
+//		@Router			/unconfirmed_txs [get]
 func UnconfirmedTxs(c *gin.Context) {
 	// Validation
 	req := &UnconfirmedTxsBind{}
@@ -45,4 +46,10 @@ func UnconfirmedTxs(c *gin.Context) {
 	var v interface{}
 	json.NewDecoder(response.Body).Decode(&v)
 	c.JSON(200, v) // Write Body
+
+	err2 := response.Body.Close()
+
+	if err2 != nil {
+		log.Logger.Error.Println(err.Error())
+	}
 }
