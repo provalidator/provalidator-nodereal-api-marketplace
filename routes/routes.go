@@ -118,6 +118,8 @@ func AuthorizationMiddleware(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": http.StatusUnauthorized, "error": "You've already exceeded the limit. (100,000 Requests)"})
 		c.Abort()
 		return
+	} else {
+		log.Logger.Trace.Println("Valid request!", "sub:", claims.Sub, "(", requestsCnt, ")")
 	}
 	// 2. Write usage data Log
 	models.WriteLog(claims.Sub, tokenString, c.ClientIP(), c.Request.URL.Path)
