@@ -44,7 +44,7 @@ func WriteLog(sub string, token string, ip string, method string) {
 	// Usage count
 	ym := now.Format("0601")
 	uqKey := ym + "-" + sub
-	DB.Exec("INSERT INTO nodereal.api_usages_counts(uqkey) values (?) ON DUPLICATE KEY UPDATE uqkey = ?, counts = counts+1;", uqKey, uqKey)
+	DB.Exec("INSERT INTO nodereal.api_usages_counts(uqkey,chain) values (?,?) ON DUPLICATE KEY UPDATE uqkey = ?, counts = counts+1;", uqKey, "evmos", uqKey)
 
 }
 
