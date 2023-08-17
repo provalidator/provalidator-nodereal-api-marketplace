@@ -43,7 +43,7 @@ func WriteLog(sub string, token string, ip string, method string) {
 
 	// Usage count
 	ym := now.Format("0601")
-	uqKey := ym + "-" + sub
+	uqKey := "evmos" + ym + "-" + sub
 	DB.Exec("INSERT INTO nodereal.api_usages_counts(uqkey,chain) values (?,?) ON DUPLICATE KEY UPDATE uqkey = ?, counts = counts+1;", uqKey, "evmos", uqKey)
 
 }
@@ -53,7 +53,7 @@ func Count(sub string) int {
 	now := time.Now()
 	// Usage count
 	ym := now.Format("0601")
-	uqKey := ym + "-" + sub
+	uqKey := "evmos" + ym + "-" + sub
 	DB.Raw("SELECT counts FROM nodereal.api_usages_counts WHERE uqkey = ?", uqKey).Scan(&apiUsagesCount)
 	return apiUsagesCount.Counts
 }
