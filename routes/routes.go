@@ -24,6 +24,7 @@ func AuthorizationMiddleware(c *gin.Context) {
 
 	// Without Token
 	whiteListIps := strings.Split(os.Getenv("WHITE_LIST_IPS"), ",")
+	whiteListSubs := strings.Split(os.Getenv("WHITE_LIST_SUBS"), ",")
 
 	// Ip free pass
 	for _, ip := range whiteListIps {
@@ -72,6 +73,15 @@ func AuthorizationMiddleware(c *gin.Context) {
 	now := time.Now()
 	unixTime := now.Unix()
 	// claims.Exp = 1682038514 // Test
+
+	// Token Sub free pass
+	for _, sub := range whiteListSubs {
+		if claims.Sub == sub {
+			log.Logger.Trace.Println("whiteListSubs ", claims.Sub)
+			c.Next()
+			return
+		}
+	}
 
 	if claims.Exp < unixTime {
 		log.Logger.Error.Println("Token is expired")

@@ -40,10 +40,20 @@ func WriteLog(sub string, token string, ip string, method string) {
 	date := now.Format("2006-01-02 15:04:05")
 	input := ApiUsage{Sub: sub, Token: token, Ip: ip, Method: method, Date: date, ChainName: os.Getenv("CHAIN_NAME")}
 	DB.Create(&input)
+
+	// Usage count
+	ym := now.Format("0601")
+	uqKey := ym + "-" + sub
+	DB.Exec("INSERT INTO nodereal.api_usages_counts(uqkey) values (?) ON DUPLICATE KEY UPDATE uqkey = ?, counts = counts+1;", uqKey, uqKey)
+
 }
 
 func Count(sub string) int {
-	apiUsage := ApiUsage{}
-	DB.Raw("SELECT count(1) AS cnt	FROM ( SELECT * FROM nodereal.api_usages WHERE date BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND NOW() ) AS a	WHERE a.sub= ?", sub).Scan(&apiUsage)
-	return apiUsage.Cnt
+	apiUsagesCount := ApiUsagesCount{}
+	now := time.Now()
+	// Usage count
+	ym := now.Format("0601")
+	uqKey := ym + "-" + sub
+	DB.Raw("SELECT counts FROM nodereal.api_usages_counts WHERE uqkey = ?", uqKey).Scan(&apiUsagesCount)
+	return apiUsagesCount.Counts
 }
