@@ -24,6 +24,7 @@ func AuthorizationMiddleware(c *gin.Context) {
 
 	// Without Token
 	whiteListIps := strings.Split(os.Getenv("WHITE_LIST_IPS"), ",")
+	whiteListSubs := strings.Split(os.Getenv("WHITE_LIST_SUBS"), ",")
 
 	// Ip free pass
 	for _, ip := range whiteListIps {
@@ -73,6 +74,14 @@ func AuthorizationMiddleware(c *gin.Context) {
 	unixTime := now.Unix()
 	// claims.Exp = 1682038514 // Test
 
+	// Token Sub free pass
+	for _, sub := range whiteListSubs {
+		if claims.Sub == sub {
+			log.Logger.Trace.Println("whiteListSubs ", claims.Sub)
+			c.Next()
+			return
+		}
+	}
 	if claims.Exp < unixTime {
 		log.Logger.Error.Println("Token is expired")
 		log.Logger.Error.Println("UnixTime : ", time.Unix(unixTime, 0))
@@ -108,6 +117,8 @@ func AuthorizationMiddleware(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": http.StatusUnauthorized, "error": "You've already exceeded the limit. (100,000 Requests)"})
 		c.Abort()
 		return
+	} else {
+		log.Logger.Trace.Println("Valid request!", "sub:", claims.Sub, "(", requestsCnt, ")")
 	}
 	// 2. Write usage data Log
 	models.WriteLog(claims.Sub, tokenString, c.ClientIP(), c.Request.URL.Path)

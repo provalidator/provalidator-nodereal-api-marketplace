@@ -9,3 +9,8 @@ type ApiUsage struct {
 	Cnt       int    `json:"cnt"`
 	ChainName string `json:"chain_name"`
 }
+
+type ApiUsagesCount struct {
+	UqKey  string `json:"uqkey"`
+	Counts int    `json:"counts"`
+}
