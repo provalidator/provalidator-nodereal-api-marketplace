@@ -18,8 +18,8 @@ func Rpc() http.Handler {
 	return r
 }
 
-//https://docs.tendermint.com/v0.34/rpc/#/Info/validators
-//https://v1.cosmos.network/rpc/v0.41.4
+// https://docs.tendermint.com/v0.34/rpc/#/Info/validators
+// https://v1.cosmos.network/rpc/v0.41.4
 func setupRpcRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(gin.Recovery())
@@ -41,25 +41,48 @@ func setupRpcRouter() *gin.Engine {
 	rpc := r.Group("")
 	{
 		//JSONRPC/HTTP
-		rpc.POST("", mw, rpcRoutes.Post)
-
-		// Info
-		rpc.GET("/health", mw, rpcRoutes.Health)
-		rpc.GET("/net_info", mw, rpcRoutes.NetInfo)
-		rpc.GET("/status", mw, rpcRoutes.Status)
-		rpc.GET("/consensus_state", mw, rpcRoutes.ConsensusStatus)
-		rpc.GET("/dump_consensus_state", mw, rpcRoutes.DumpConsensusStatus)
-		rpc.GET("/consensus_params", mw, rpcRoutes.ConsensusParams)
-		rpc.GET("/tx", mw, rpcRoutes.Tx)
-		rpc.GET("/check_tx", mw, rpcRoutes.CheckTx)
-		rpc.GET("/block", mw, rpcRoutes.Block)
-		rpc.GET("/validators", mw, rpcRoutes.Validators)
-		rpc.GET("/unconfirmed_txs", mw, rpcRoutes.UnconfirmedTxs)
-		rpc.GET("/num_unconfirmed_txs", mw, rpcRoutes.NumUnconfirmedTxs)
-
-		// ABCI
-		rpc.GET("/abci_info", mw, rpcRoutes.AbciInfo)
-		rpc.GET("/abci_query", mw, rpcRoutes.AbciQuery)
+		rpc.POST("clientVersion", mw, rpcRoutes.Post)
+		rpc.POST("sha3", mw, rpcRoutes.Post)
+		rpc.POST("version", mw, rpcRoutes.Post)
+		rpc.POST("listening", mw, rpcRoutes.Post)
+		rpc.POST("peerCount", mw, rpcRoutes.Post)
+		rpc.POST("protocolVersion", mw, rpcRoutes.Post)
+		rpc.POST("syncing", mw, rpcRoutes.Post)
+		rpc.POST("coinbase", mw, rpcRoutes.Post)
+		rpc.POST("gasPrice", mw, rpcRoutes.Post)
+		rpc.POST("accounts", mw, rpcRoutes.Post)
+		rpc.POST("blockNumber", mw, rpcRoutes.Post)
+		rpc.POST("getBalance", mw, rpcRoutes.Post)
+		rpc.POST("getStorageAt", mw, rpcRoutes.Post)
+		rpc.POST("getBlockTransactionCount", mw, rpcRoutes.Post)
+		rpc.POST("getBlockTransactionCountByHash", mw, rpcRoutes.Post)
+		rpc.POST("getBlockTransactionCountByNumber", mw, rpcRoutes.Post)
+		rpc.POST("getCode", mw, rpcRoutes.Post)
+		rpc.POST("sign", mw, rpcRoutes.Post)
+		rpc.POST("sendTransaction", mw, rpcRoutes.Post)
+		rpc.POST("senRawTransaction", mw, rpcRoutes.Post)
+		rpc.POST("call", mw, rpcRoutes.Post)
+		rpc.POST("estimateGas", mw, rpcRoutes.Post)
+		rpc.POST("getBlockByHash", mw, rpcRoutes.Post)
+		rpc.POST("getBlockSignersByNumber", mw, rpcRoutes.Post)
+		rpc.POST("getBlockSignersByHash", mw, rpcRoutes.Post)
+		rpc.POST("getBlockFinalityByNumber", mw, rpcRoutes.Post)
+		rpc.POST("getBlockFinalityByHash", mw, rpcRoutes.Post)
+		rpc.POST("getCandidates", mw, rpcRoutes.Post)
+		rpc.POST("getCandidateStatus", mw, rpcRoutes.Post)
+		rpc.POST("getTransactionByHash", mw, rpcRoutes.Post)
+		rpc.POST("getTransactionByBlockHashAndIndex", mw, rpcRoutes.Post)
+		rpc.POST("getTransactionByBlockNumberAndIndex", mw, rpcRoutes.Post)
+		rpc.POST("getTransactionReceipt", mw, rpcRoutes.Post)
+		rpc.POST("getAskTree", mw, rpcRoutes.Post)
+		rpc.POST("getAsks", mw, rpcRoutes.Post)
+		rpc.POST("getBestAsk", mw, rpcRoutes.Post)
+		rpc.POST("getBidTree", mw, rpcRoutes.Post)
+		rpc.POST("getBids", mw, rpcRoutes.Post)
+		rpc.POST("getBestBid", mw, rpcRoutes.Post)
+		rpc.POST("getBorrows", mw, rpcRoutes.Post)
+		rpc.POST("getInvest", mw, rpcRoutes.Post)
+		rpc.POST("getNetworkInformation", mw, rpcRoutes.Post)
 	}
 
 	return r

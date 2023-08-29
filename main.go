@@ -43,12 +43,12 @@ func main() {
 	// DB
 	models.ConnectDatabase()
 
-	lcdServer := &http.Server{
-		Addr:         ":" + os.Getenv("LCD_PORT"),
-		Handler:      routes.Lcd(),
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
-	}
+	// lcdServer := &http.Server{
+	// 	Addr:         ":" + os.Getenv("LCD_PORT"),
+	// 	Handler:      routes.Lcd(),
+	// 	ReadTimeout:  5 * time.Second,
+	// 	WriteTimeout: 10 * time.Second,
+	// }
 
 	rpcServer := &http.Server{
 		Addr:         ":" + os.Getenv("RPC_PORT"),
@@ -57,9 +57,9 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	g.Go(func() error {
-		return lcdServer.ListenAndServe()
-	})
+	// g.Go(func() error {
+	// 	return lcdServer.ListenAndServe()
+	// })
 
 	g.Go(func() error {
 		return rpcServer.ListenAndServe()
