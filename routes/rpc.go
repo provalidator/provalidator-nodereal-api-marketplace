@@ -41,6 +41,7 @@ func setupRpcRouter() *gin.Engine {
 	rpc := r.Group("")
 	{
 		//JSONRPC/HTTP
+		rpc.POST("", mw, rpcRoutes.Post)
 		rpc.POST("clientVersion", mw, rpcRoutes.Post)
 		rpc.POST("sha3", mw, rpcRoutes.Post)
 		rpc.POST("version", mw, rpcRoutes.Post)
